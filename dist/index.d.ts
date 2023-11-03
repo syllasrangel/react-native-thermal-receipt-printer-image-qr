@@ -74,7 +74,7 @@ declare const BLEPrinter: {
     getDeviceList: () => Promise<IBLEPrinter[]>;
     connectPrinter: (inner_mac_address: string) => Promise<IBLEPrinter>;
     closeConn: () => Promise<void>;
-    printText: (text: string, opts?: PrinterOptions) => void;
+    printText: (text: string, opts?: PrinterOptions) => Promise<void>;
     printBill: (text: string, opts?: PrinterOptions) => void;
     /**
      * image url

@@ -259,19 +259,30 @@ const BLEPrinter = {
       resolve();
     }),
 
-  printText: (text: string, opts: PrinterOptions = {}): void => {
-    if (Platform.OS === "ios") {
-      const processedText = textPreprocessingIOS(text, false, false);
-      RNBLEPrinter.printRawData(
-        processedText.text,
-        processedText.opts,
-        (error: Error) => console.warn(error)
-      );
-    } else {
-      RNBLEPrinter.printRawData(textTo64Buffer(text, opts), (error: Error) =>
-        console.warn(error)
-      );
-    }
+  printText: (text: string, opts: PrinterOptions = {}): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      if (Platform.OS === "ios") {
+        const processedText = textPreprocessingIOS(text, false, false);
+        RNBLEPrinter.printRawData(
+          processedText.text,
+          processedText.opts,
+          (error: Error) => {
+            console.warn(error);
+            reject(error);
+          }
+        );
+        resolve();
+      } else {
+        RNBLEPrinter.printRawData(
+          textTo64Buffer(text, opts),
+          () => resolve(),
+          (error: Error) => {
+            console.warn(error);
+            reject(error);
+          }
+        );
+      }
+    });
   },
 
   printBill: (text: string, opts: PrinterOptions = {}): void => {
