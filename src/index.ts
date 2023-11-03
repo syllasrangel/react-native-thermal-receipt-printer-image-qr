@@ -298,7 +298,7 @@ const BLEPrinter = {
         (error: Error) => console.warn(error)
       );
     } else {
-      RNBLEPrinter.printRawData(billTo64Buffer(text, opts), (error: Error) =>
+      RNBLEPrinter.printRawData(billTo64Buffer(text, opts),()=> {}, (error: Error) =>
         console.warn(error)
       );
     }
@@ -386,7 +386,7 @@ const BLEPrinter = {
         (error: Error) => console.warn(error)
       );
     } else {
-      RNBLEPrinter.printRawData(textTo64Buffer(result, opts), (error: Error) =>
+      RNBLEPrinter.printRawData(textTo64Buffer(result, opts), ()=> {}, (error: Error) =>
         console.warn(error)
       );
     }
