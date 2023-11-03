@@ -144,10 +144,12 @@ const USBPrinter = {
       resolve();
     }),
 
-  printText: (text: string, opts: PrinterOptions = {}): void =>
-    RNUSBPrinter.printRawData(textTo64Buffer(text, opts), (error: Error) =>
-      console.warn(error)
-    ),
+  printText: (text: string, opts: PrinterOptions = {}): Promise<void> =>
+  new Promise((resolve, reject) => {
+    RNUSBPrinter.printRawData(textTo64Buffer(text, opts), () =>
+      resolve(), (error: Error) => reject(error)
+    )
+  }),
 
   printBill: (text: string, opts: PrinterOptions = {}): void =>
     RNUSBPrinter.printRawData(billTo64Buffer(text, opts), (error: Error) =>
