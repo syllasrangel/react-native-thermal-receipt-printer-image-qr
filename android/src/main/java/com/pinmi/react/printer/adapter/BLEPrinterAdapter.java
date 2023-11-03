@@ -177,35 +177,23 @@ public class BLEPrinterAdapter implements PrinterAdapter{
         final String rawData = rawBase64Data;
         final BluetoothSocket socket = this.mBluetoothSocket;
         Log.v(LOG_TAG, "start to print raw data " + rawBase64Data);
-        byte [] bytes = Base64.decode(rawData, Base64.DEFAULT);
-        try{
-            Log.v(LOG_TAG, "Test not in thread ");
-            OutputStream printerOutputStream = socket.getOutputStream();
-            printerOutputStream.write(bytes, 0, bytes.length);
-            printerOutputStream.flush();
-            successCallback.invoke("Success");
-        }catch (IOException e){
-            Log.e(LOG_TAG, "failed to print data" + rawData);
-            e.printStackTrace();
-            errorCallback.invoke(e.getMessage());
-        }
-        // new Thread(new Runnable() {
-        //     @Override
-        //     public void run() {
-        //         byte [] bytes = Base64.decode(rawData, Base64.DEFAULT);
-        //         try{
-        //             OutputStream printerOutputStream = socket.getOutputStream();
-        //             printerOutputStream.write(bytes, 0, bytes.length);
-        //             printerOutputStream.flush();
-        //             successCallback.invoke("Success");
-        //         }catch (IOException e){
-        //             Log.e(LOG_TAG, "failed to print data" + rawData);
-        //             e.printStackTrace();
-        //             errorCallback.invoke(e.getMessage());
-        //         }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                byte [] bytes = Base64.decode(rawData, Base64.DEFAULT);
+                try{
+                    OutputStream printerOutputStream = socket.getOutputStream();
+                    printerOutputStream.write(bytes, 0, bytes.length);
+                    printerOutputStream.flush();
+                    successCallback.invoke("Success");
+                }catch (IOException e){
+                    Log.e(LOG_TAG, "failed to print data" + rawData);
+                    e.printStackTrace();
+                    errorCallback.invoke(e.getMessage());
+                }
 
-        //     }
-        // }).start();
+            }
+        }).start();
     }
 
     public static Bitmap getBitmapFromURL(String src) {
