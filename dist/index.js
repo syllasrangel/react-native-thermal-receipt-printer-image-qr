@@ -228,22 +228,15 @@ var BLEPrinter = {
     },
     printText: function (text, opts) {
         if (opts === void 0) { opts = {}; }
-        return new Promise(function (resolve, reject) {
-            if (Platform.OS === "ios") {
-                var processedText = textPreprocessingIOS(text, false, false);
-                RNBLEPrinter.printRawData(processedText.text, processedText.opts, function (error) {
-                    console.warn(error);
-                    reject(error);
-                });
-                resolve();
-            }
-            else {
-                RNBLEPrinter.printRawData(textTo64Buffer(text, opts), function () { return resolve(); }, function (error) {
-                    console.warn(error);
-                    reject(error);
-                });
-            }
-        });
+        if (Platform.OS === "ios") {
+            var processedText = textPreprocessingIOS(text, false, false);
+            RNBLEPrinter.printRawData(processedText.text, processedText.opts, function (error) { return console.warn(error); });
+        }
+        else {
+            RNBLEPrinter.printRawData(textTo64Buffer(text, opts), function (error) {
+                return console.warn(error);
+            });
+        }
     },
     printBill: function (text, opts) {
         var _a, _b;
