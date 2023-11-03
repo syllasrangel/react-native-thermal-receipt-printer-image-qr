@@ -253,7 +253,7 @@ var BLEPrinter = {
             RNBLEPrinter.printRawData(processedText.text, processedText.opts, function (error) { return console.warn(error); });
         }
         else {
-            RNBLEPrinter.printRawData(billTo64Buffer(text, opts), function () { }, function (error) {
+            RNBLEPrinter.printRawData(billTo64Buffer(text, opts), function (error) {
                 return console.warn(error);
             });
         }
@@ -325,7 +325,7 @@ var BLEPrinter = {
             RNBLEPrinter.printRawData(processedText.text, processedText.opts, function (error) { return console.warn(error); });
         }
         else {
-            RNBLEPrinter.printRawData(textTo64Buffer(result, opts), function () { }, function (error) {
+            RNBLEPrinter.printRawData(textTo64Buffer(result, opts), function (error) {
                 return console.warn(error);
             });
         }
