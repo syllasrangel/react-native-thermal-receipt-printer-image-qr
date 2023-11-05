@@ -238,6 +238,7 @@ var BLEPrinter = {
             }
             else {
                 RNBLEPrinter.printRawData(textTo64Buffer(text, opts), function () {
+                    console.log("success was called");
                     resolve();
                 }, function (error) {
                     console.warn(error);

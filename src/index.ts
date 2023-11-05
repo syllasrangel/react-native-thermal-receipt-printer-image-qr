@@ -274,6 +274,7 @@ const BLEPrinter = {
         RNBLEPrinter.printRawData(
           textTo64Buffer(text, opts),
           () => {
+            console.log("success was called");
             resolve();
           },
           (error: Error) => {
