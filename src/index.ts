@@ -111,6 +111,13 @@ const textPreprocessingIOS = (text: string, canCut = true, beep = true) => {
 //   return buffer.toString("base64");
 // };
 
+export const utils = {
+  textTo64Buffer,
+  processColumnText,
+  billTo64Buffer,
+  textPreprocessingIOS,
+};
+
 const USBPrinter = {
   init: (): Promise<void> =>
     new Promise((resolve, reject) =>

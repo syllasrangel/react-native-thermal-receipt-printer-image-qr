@@ -110,6 +110,12 @@ var textPreprocessingIOS = function (text, canCut, beep) {
 //   const buffer = await EPToolkit.exchange_image(imagePath, threshold);
 //   return buffer.toString("base64");
 // };
+export var utils = {
+    textTo64Buffer: textTo64Buffer,
+    processColumnText: processColumnText,
+    billTo64Buffer: billTo64Buffer,
+    textPreprocessingIOS: textPreprocessingIOS,
+};
 var USBPrinter = {
     init: function () {
         return new Promise(function (resolve, reject) {

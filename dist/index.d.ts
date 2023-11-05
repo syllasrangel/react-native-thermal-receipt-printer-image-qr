@@ -38,6 +38,18 @@ export declare enum ColumnAlignment {
     CENTER = 1,
     RIGHT = 2
 }
+export declare const utils: {
+    textTo64Buffer: (text: string, opts: PrinterOptions) => string;
+    processColumnText: (texts: string[], columnWidth: number[], columnAlignment: ColumnAlignment[], columnStyle?: string[]) => string;
+    billTo64Buffer: (text: string, opts: PrinterOptions) => string;
+    textPreprocessingIOS: (text: string, canCut?: boolean, beep?: boolean) => {
+        text: string;
+        opts: {
+            beep: boolean;
+            cut: boolean;
+        };
+    };
+};
 declare const USBPrinter: {
     init: () => Promise<void>;
     getDeviceList: () => Promise<IUSBPrinter[]>;
